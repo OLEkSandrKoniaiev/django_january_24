@@ -1,17 +1,8 @@
-from rest_framework.response import Response
-from rest_framework import status
-from django.forms import model_to_dict
-from rest_framework.views import APIView
-from rest_framework.generics import GenericAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from django.db.models import Q
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-from first.models import CarModel
-from first.serializers import CarSerializer
-from first.filter import car_filter
-
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, \
-    CreateModelMixin
-
+from apps.cars.filter import car_filter
+from apps.cars.models import CarModel
+from apps.cars.serializers import CarSerializer
 
 # class CarListCreateView(GenericAPIView):
 #     def get(self, *args, **kwargs):
