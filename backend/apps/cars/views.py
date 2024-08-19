@@ -1,32 +1,45 @@
-from rest_framework import status
-from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.response import Response
+from django.utils.decorators import method_decorator
 
-from core.permissions.is_admin_or_write_only import IsAdminOrWriteOnly
-from core.services.email_service import EmailService
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
+from drf_yasg.utils import swagger_auto_schema
 
 from apps.cars.filter import CarFilter
 from apps.cars.models import CarModel
 from apps.cars.serializers import CarPhotoSerializer, CarSerializer
 
 
+# дозволяє у документації всім користуватися вказаним методом (прибирає замочок)
+@method_decorator(name='get',decorator=swagger_auto_schema(security=[],
+                                                           operation_summary='get all cars',
+                                                           operation_id='get_all_cars'))
+# @method_decorator(name='post', decorator=swagger_auto_schema(security=[]))
 class CarListView(ListAPIView):
+    """
+    get:
+        get all cars
+    """
     serializer_class = CarSerializer
     queryset = CarModel.objects.all()
     filterset_class = CarFilter
     permission_classes = (AllowAny,)
 
-    # def get_queryset(self):
-    #     print(self.request.user.profile.name, '!!!!!!!!!!!!!!!')
-    #     return super().get_queryset()
-
 
 class CarRetrieveUpdateDestroyView(RetrieveUpdateDestroyAPIView):
+    """
+    get:
+        get car
+    put:
+        update car
+    patch:
+        partial update car
+    delete:
+        delete car
+    """
     serializer_class = CarSerializer
     queryset = CarModel.objects.all()
 
-    # permission_classes = (IsAuthenticated,)  #працюватиме на всі методи
     def get_permissions(self):
         if self.request.method == 'DELETE':
             return (IsAuthenticated(),)
@@ -44,7 +57,6 @@ class CarAddPhotoView(UpdateAPIView):
         car = self.get_object()
         car.photo.delete()
         super().perform_update(serializer)
-
 
 # class TestEmailView(GenericAPIView):
 #     permission_classes = (AllowAny,)

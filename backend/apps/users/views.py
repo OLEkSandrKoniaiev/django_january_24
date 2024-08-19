@@ -18,6 +18,7 @@ class UserListCreateView(ListCreateAPIView):
 
 class UserBlockView(GenericAPIView):
     permission_classes = (IsAdminUser,)
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         return UserModel.objects.exclude(pk=self.request.user.id)
@@ -34,6 +35,7 @@ class UserBlockView(GenericAPIView):
 
 
 class UserUnBlockView(GenericAPIView):
+    serializer_class = UserSerializer
     permission_classes = (IsAdminUser,)
 
     def get_queryset(self):
@@ -52,6 +54,7 @@ class UserUnBlockView(GenericAPIView):
 
 class UserToAdminView(GenericAPIView):
     permission_classes = (IsAdminUser,)
+    serializer_class = UserSerializer
 
     def get_queryset(self):
         return UserModel.objects.exclude(pk=self.request.user.id)

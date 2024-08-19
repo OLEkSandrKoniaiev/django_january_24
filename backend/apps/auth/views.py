@@ -17,6 +17,11 @@ UserModel: User = get_user_model()
 
 class ActiveUserView(GenericAPIView):
     permission_classes = (AllowAny,)
+    serializer_class = UserSerializer
+
+    # на випадок коли serializer клас не потрібний
+    # def get_serializer_class(self):
+    #     pass
 
     def patch(self, *args, **kwargs):
         token = kwargs['token']
