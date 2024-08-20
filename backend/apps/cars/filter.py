@@ -1,7 +1,6 @@
 from django_filters import rest_framework as filters
 
 from apps.cars.choices.body_type_choices import BodyTypeChoices
-from apps.cars.models import CarModel
 
 
 class CarFilter(filters.FilterSet):
@@ -13,6 +12,6 @@ class CarFilter(filters.FilterSet):
         fields=(
             'brand',
             'price',
-            ('id', 'asd')  # випадок коли хочемо назвати параметр сортування власною назвою
+            ('id', 'asd')
         )
     )

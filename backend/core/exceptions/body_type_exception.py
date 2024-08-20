@@ -1,0 +1,2 @@
+class BodyTypeException(Exception):
+    pass

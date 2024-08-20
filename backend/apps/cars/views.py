@@ -57,10 +57,3 @@ class CarAddPhotoView(UpdateAPIView):
         car = self.get_object()
         car.photo.delete()
         super().perform_update(serializer)
-
-# class TestEmailView(GenericAPIView):
-#     permission_classes = (AllowAny,)
-#
-#     def get(self, *args, **kwargs):
-#         EmailService.send_test()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
