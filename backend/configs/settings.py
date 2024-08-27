@@ -15,7 +15,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['test-django.us-east-1.elasticbeanstalk.com']
 AUTH_USER_MODEL = 'users.UserModel'
 
 # Application definition
